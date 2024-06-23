@@ -113,18 +113,26 @@ const palindrome = function (str) {
 
 palindrome('level');
 */
-
 /*
 //excercise 2
 const flatten = (array) => {
   const result = [];
+  for (const element of array) {
+    if (Array.isArray(element)) {
+      const flattened = flatten(element);
+      for (const innerElement of flattened) {
+        result.push(innerElement);
+      }
+    } else {
+      result.push(element);
+    }
+  }
+
   return result;
 };
 
-// flatten([1, 2, 3]);
-
-// console.log(flatten([1, 2, 3]));
-// console.log(flatten([1, 2, 3, [2, 4, 6], 7]));
+console.log(flatten([1, 2, 3]));
+console.log(flatten([1, 2, 3, [2, 4, 6], 7]));
 console.log(flatten([1, [4, 5, 6, [7, 8, 9]], 2, 3]));
 */
 
@@ -152,16 +160,17 @@ const objectSample = {
 const flatten = (obj) => {
   let result = {};
   for (const [key, value] of Object.entries(obj)) {
+    // console.log(key);
     if (typeof value === 'object') {
+      // console.log(value);
       const flattened = flatten(value);
       result = { ...result, ...flattened };
       return result;
+      // flatten(Object.entries(value));
     } else {
       result[key] = value;
     }
   }
-  // result = { ...obj };
-  // console.log(result);
   return result;
 };
 
